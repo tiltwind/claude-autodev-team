@@ -30,8 +30,13 @@
   "hooks": {
     "Stop": [
       {
-        "matcher": "",
-        "command": "bash .claude/scripts/autodev-hook.sh"
+        "matcher": {},
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash scripts/autodev-hook.sh"
+          }
+        ]
       }
     ]
   }
