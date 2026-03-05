@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(bun *)",
+      "Bash(pnpm *)",
+      "Bash(yarn *)",
+      "Bash(go *)",
+      "Bash(cargo *)",
+      "Bash(python *)",
+      "Bash(pip *)",
+      "Bash(pytest *)",
+      "Bash(mvn *)",
+      "Bash(gradle *)",
+      "Bash(make *)",
+      "Bash(ls *)",
+      "Bash(mkdir *)",
+      "Bash(cat *)",
+      "Bash(mv *)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "command": "bash .claude/scripts/autodev-hook.sh"
+      }
+    ]
+  }
+}
