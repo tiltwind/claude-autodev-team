@@ -47,7 +47,25 @@ run_agent() {
 
   log "Starting agent: ${agent}"
   echo "$agent" > "$STATE_FILE"
-  claude -p "$(cat "$prompt_file")" --verbose 2>&1 | tee "${AUTODEV_DIR}/log-${agent}.txt"
+
+  # Build prompt: agent role + session context + raw requirement
+  local prompt
+  prompt="$(cat "$prompt_file")"
+  prompt="${prompt}
+
+---
+
+## Autodev Session Context
+
+- Session directory: ${AUTODEV_DIR}
+- Current agent: ${agent}
+
+## Raw Requirement
+
+$(cat "${AUTODEV_DIR}/0-raw-requirement.md")
+"
+
+  claude -p "$prompt" --verbose 2>&1 | tee "${AUTODEV_DIR}/log-${agent}.txt"
   log "Agent ${agent} completed"
 }
 
