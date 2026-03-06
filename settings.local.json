@@ -24,7 +24,8 @@
       "Bash(ls *)",
       "Bash(mkdir *)",
       "Bash(cat *)",
-      "Bash(mv *)"
+      "Bash(mv *)",
+      "Bash(mkdir:*)"
     ]
   },
   "hooks": {

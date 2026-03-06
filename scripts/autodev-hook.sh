@@ -4,8 +4,8 @@
 # Called by Claude Code's Stop hook after each agent completes.
 # Delegates to autodev-pipeline.sh in background to avoid blocking the session.
 #
-# Flow: analyst -> designer -> expert -> developer -> engineer -> tester
-#       If tester fails: -> developer -> engineer -> tester (loop, max 3 times)
+# Flow: analyst -> designer -> expert -> developer -> reviewer -> tester
+#       If tester fails: -> developer -> reviewer -> tester (loop, max 3 times)
 #       If tester passes: -> done
 set -euo pipefail
 
@@ -24,7 +24,7 @@ CURRENT_STATE="$(cat "$STATE_FILE")"
 
 # Only trigger for known autodev states (not done/unknown)
 case "$CURRENT_STATE" in
-  analyst|designer|expert|developer|engineer|tester)
+  analyst|designer|expert|developer|reviewer|tester)
     ;;
   *)
     exit 0

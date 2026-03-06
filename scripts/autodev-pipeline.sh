@@ -62,7 +62,7 @@ run_agent() {
 
 ## Raw Requirement
 
-$(cat "${AUTODEV_DIR}/0-raw-requirement.md")
+$(cat "${AUTODEV_DIR}/0-requirement-raw.md")
 "
 
   claude -p "$prompt" --verbose 2>&1 | tee "${AUTODEV_DIR}/log-${agent}.txt"
@@ -83,12 +83,12 @@ CURRENT_STATE="$(cat "$STATE_FILE")"
 
 # Map current state to the sequence of remaining agents
 case "$CURRENT_STATE" in
-  analyst)   REMAINING=(designer expert developer engineer tester) ;;
-  designer)  REMAINING=(expert developer engineer tester) ;;
-  expert)    REMAINING=(developer engineer tester) ;;
-  developer) REMAINING=(engineer tester) ;;
-  engineer)  REMAINING=(tester) ;;
-  tester)    REMAINING=(developer engineer tester) ;;  # retry loop
+  analyst)   REMAINING=(designer expert developer reviewer tester) ;;
+  designer)  REMAINING=(expert developer reviewer tester) ;;
+  expert)    REMAINING=(developer reviewer tester) ;;
+  developer) REMAINING=(reviewer tester) ;;
+  reviewer)  REMAINING=(tester) ;;
+  tester)    REMAINING=(developer reviewer tester) ;;  # retry loop
   *)         exit 0 ;;
 esac
 
@@ -102,7 +102,7 @@ for agent in "${REMAINING[@]}"; do
       # Enter the dev-test loop
       break
       ;;
-    engineer)
+    reviewer)
       # Shouldn't happen in isolation, but handle it
       run_agent "$agent"
       ;;
@@ -117,14 +117,14 @@ iteration=0
 # Determine if we should start in the loop
 should_loop=false
 for agent in "${REMAINING[@]}"; do
-  case "$agent" in developer|engineer|tester) should_loop=true; break ;; esac
+  case "$agent" in developer|reviewer|tester) should_loop=true; break ;; esac
 done
 
 if [ "$should_loop" = true ]; then
   # Determine starting point in the loop
   loop_start="developer"
   for agent in "${REMAINING[@]}"; do
-    case "$agent" in developer|engineer|tester) loop_start="$agent"; break ;; esac
+    case "$agent" in developer|reviewer|tester) loop_start="$agent"; break ;; esac
   done
 
   while true; do
@@ -141,9 +141,9 @@ if [ "$should_loop" = true ]; then
       run_agent "developer"
     fi
 
-    # Engineer
-    if [ "$loop_start" = "developer" ] || [ "$loop_start" = "engineer" ]; then
-      run_agent "engineer"
+    # Reviewer
+    if [ "$loop_start" = "developer" ] || [ "$loop_start" = "reviewer" ]; then
+      run_agent "reviewer"
     fi
 
     # Tester

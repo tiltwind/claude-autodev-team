@@ -5,8 +5,8 @@
 #   bash .claude/scripts/autodev.sh "requirement description"
 #   bash .claude/scripts/autodev.sh --resume
 #
-# Orchestrates: analyst -> designer -> expert -> developer -> engineer -> tester
-# If tester fails: developer -> engineer -> tester (loop, max 3 times)
+# Orchestrates: analyst -> designer -> expert -> developer -> reviewer -> tester
+# If tester fails: developer -> reviewer -> tester (loop, max 3 times)
 set -euo pipefail
 
 MAX_FIX_ITERATIONS=3
@@ -45,7 +45,7 @@ run_agent() {
 
 ## Raw Requirement
 
-$(cat "${AUTODEV_DIR}/0-raw-requirement.md")
+$(cat "${AUTODEV_DIR}/0-requirement-raw.md")
 "
 
   claude -p "$prompt" --verbose 2>&1 | tee "${AUTODEV_DIR}/log-${agent}.txt"
@@ -97,7 +97,7 @@ else
   SHORT_NAME=$(echo "$REQUIREMENT" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g;s/--*/-/g;s/^-//;s/-$//' | cut -c1-40)
   AUTODEV_DIR=".claude/autodev/${DATE}-${SHORT_NAME}"
   mkdir -p "$AUTODEV_DIR"
-  echo "$REQUIREMENT" > "${AUTODEV_DIR}/0-raw-requirement.md"
+  echo "$REQUIREMENT" > "${AUTODEV_DIR}/0-requirement-raw.md"
   mkdir -p .claude/autodev
   echo "$AUTODEV_DIR" > .claude/autodev/ACTIVE
   log "Created session: ${AUTODEV_DIR}"
@@ -110,8 +110,8 @@ if [ -f "${AUTODEV_DIR}/STATE" ]; then
     analyst)   START_PHASE="designer" ;;
     designer)  START_PHASE="expert" ;;
     expert)    START_PHASE="developer" ;;
-    developer) START_PHASE="engineer" ;;
-    engineer)  START_PHASE="tester" ;;
+    developer) START_PHASE="reviewer" ;;
+    reviewer)  START_PHASE="tester" ;;
     tester)    START_PHASE="developer" ;;  # retry loop
     done)      log "Already completed"; exit 0 ;;
     *)         START_PHASE="analyst" ;;
@@ -146,11 +146,11 @@ while true; do
     fi
     [ "$iteration" -gt 1 ] && log "Fix iteration ${iteration}/${MAX_FIX_ITERATIONS}"
     run_agent "developer"
-    current="engineer"
+    current="reviewer"
   fi
 
-  if [ "$current" = "engineer" ]; then
-    run_agent "engineer"
+  if [ "$current" = "reviewer" ]; then
+    run_agent "reviewer"
     current="tester"
   fi
 
