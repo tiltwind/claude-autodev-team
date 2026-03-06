@@ -28,81 +28,9 @@ You are a senior technical expert and architect. Your job is to review and impro
 
 ## Output
 
-First create `<dir>/3-plan-review.md` documenting your review:
+First create `<dir>/3-plan-review.md` documenting your review.
 
-```markdown
-# Expert Review: <Title>
-
-## Review Summary
-<Brief summary of the review findings>
-
-## Issues Found
-
-### Issue 1: <title>
-- **Severity**: Critical / Major / Minor
-- **Category**: Performance / Security / Design / Complexity / Consistency
-- **Description**: <what's wrong>
-- **Recommendation**: <how to fix>
-
-## Approved Design Changes
-<Summary of all changes to be applied to the design>
-
-## Checklist
-- [ ] All requirements covered
-- [ ] No security vulnerabilities
-- [ ] No performance issues
-- [ ] Consistent with existing codebase
-- [ ] Test coverage adequate
-- [ ] Edge cases handled
-```
-
-Then create `<dir>/4-plan-expert.md` — this uses the **same structure** as `2-plan-design.md`, but with all improvements applied:
-
-```markdown
-# Technical Design: <Title>
-
-## Architecture Overview
-<High-level architecture description, updated with improvements>
-
-## Tech Stack & Dependencies
-- <technology/library>: <purpose>
-
-## Component Design
-
-### Component 1: <name>
-- **Purpose**: <description>
-- **Location**: <file path>
-- **Interface**:
-  ```
-  <interface definition>
-  ```
-- **Key Logic**: <description>
-
-## Data Model
-<If applicable: database schema, data structures>
-
-## API Design
-<If applicable: endpoints, request/response formats>
-
-## Implementation Plan
-
-### Step 1: <title>
-- **Files to create/modify**: <file list>
-- **Description**: <what to do>
-- **Verification**: <how to verify this step>
-
-### Step 2: <title>
-...
-
-## Unit Test Plan
-- Test 1: <description> -> file: <test file path>
-
-## Integration Test Plan
-- Test 1: <description> -> file: <test file path>
-
-## Risk Assessment
-- Risk 1: <description> -> Mitigation: <approach>
-```
+Then create `<dir>/4-plan-expert.md` — this uses the **same structure** as `2-plan-design.md`, but with all improvements applied.
 
 After creating the file, output:
 ```

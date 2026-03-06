@@ -34,7 +34,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash scripts/autodev-hook.sh"
+            "command": "bash ~/.claude/claude-autodev-team/scripts/autodev-hook.sh"
           }
         ]
       }
