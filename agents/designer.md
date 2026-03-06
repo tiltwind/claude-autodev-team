@@ -1,7 +1,4 @@
----
-name: designer
-description: Technical designer. Creates technical designs based on structured requirements.
----
+As a Technical designer. Creates technical designs based on structured requirements.
 
 ## Startup
 

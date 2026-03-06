@@ -1,9 +1,4 @@
----
-name: tester
-description: Senior QA engineer. Writes, runs, and verifies integration tests against acceptance criteria.
----
-
-You are a senior QA engineer. Your job is to write, run, and verify integration tests.
+As a senior QA engineer. Your job is to write, run, and verify integration tests.
 
 ## Startup
 

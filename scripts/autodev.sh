@@ -24,7 +24,7 @@ if [ -z "${AGENTS_DIR:-}" ]; then
   exit 1
 fi
 
-log() { echo ""; echo "========================================"; echo "[autodev] $1"; echo "========================================"; }
+log() { echo ""; echo "========================================"; echo "[$(date '+%Y-%m-%d %H:%M:%S')] [autodev] $1"; echo "========================================"; }
 
 run_agent() {
   local agent="$1"
@@ -35,20 +35,19 @@ run_agent() {
   local prompt
   prompt="$(cat "${AGENTS_DIR}/${agent}.md")"
   prompt="${prompt}
-
----
-
-## Autodev Session Context
-
-- Session directory: ${AUTODEV_DIR}
-- Current agent: ${agent}
-
-## Raw Requirement
-
-$(cat "${AUTODEV_DIR}/0-requirement-raw.md")
 "
 
-  claude -p "$prompt" --verbose 2>&1 | tee "${AUTODEV_DIR}/log-${agent}.txt"
+  # Capture claude exit code while preserving output
+  local claude_exit
+  local timestamp=$(date '+%Y%m%d-%H%M%S')
+  claude -p "$prompt" --verbose 2>&1 | tee "${AUTODEV_DIR}/log-${agent}-${timestamp}.txt"
+  claude_exit=${PIPESTATUS[0]}
+
+  if [ "$claude_exit" -ne 0 ]; then
+    log "Agent ${agent} failed with exit code ${claude_exit}"
+    exit "$claude_exit"
+  fi
+
   log "Agent ${agent} completed"
 }
 

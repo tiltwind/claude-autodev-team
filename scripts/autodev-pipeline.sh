@@ -32,7 +32,7 @@ fi
 log() {
   echo ""
   echo "========================================"
-  echo "[autodev] $1"
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [autodev] $1"
   echo "========================================"
 }
 
@@ -50,7 +50,7 @@ run_agent() {
 
   # Build prompt: agent role + session context + raw requirement
   local prompt
-  prompt="$(cat "$prompt_file")"
+  prompt="$(sed '1,/^$/d' "$prompt_file")"
   prompt="${prompt}
 
 ---
@@ -65,7 +65,17 @@ run_agent() {
 $(cat "${AUTODEV_DIR}/0-requirement-raw.md")
 "
 
-  claude -p "$prompt" --verbose 2>&1 | tee "${AUTODEV_DIR}/log-${agent}.txt"
+  # Capture claude exit code while preserving output
+  local claude_exit
+  local timestamp=$(date '+%Y%m%d-%H%M%S')
+  claude -p "$prompt" --verbose 2>&1 | tee "${AUTODEV_DIR}/log-${agent}-${timestamp}.txt"
+  claude_exit=${PIPESTATUS[0]}
+
+  if [ "$claude_exit" -ne 0 ]; then
+    log "Agent ${agent} failed with exit code ${claude_exit}"
+    exit "$claude_exit"
+  fi
+
   log "Agent ${agent} completed"
 }
 

@@ -59,29 +59,12 @@ When the tester finds integration test failures:
 
 ## Usage
 
-### Method 1: `@analyst` + Stop Hook (recommended)
-
-In a Claude Code interactive session:
-
-```
-@analyst implement user login with email and phone number
-```
-
-The analyst creates the autodev directory and requirement docs. When it finishes, the **Stop hook** automatically triggers the remaining agents in sequence via `claude -p` (non-interactive mode) in the background.
-
-### Method 2: Standalone Orchestrator
-
 Run from the terminal:
 
 ```bash
 bash .claude/scripts/autodev.sh "implement user login with email and phone number"
 ```
-
-Resume an interrupted session:
-
-```bash
-bash .claude/scripts/autodev.sh --resume
-```
+**NOTE**: ALWAYS PROVIDE COMPLETED REQUIREMENTS.
 
 ## How Agents Are Chained
 

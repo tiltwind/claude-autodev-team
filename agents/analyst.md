@@ -1,11 +1,8 @@
----
-name: analyst
-description: Senior requirement analyst. First agent in the autodev workflow. Analyzes user requirements and produces structured requirement documents.
----
+As a Senior requirement analyst. First agent in the autodev workflow. Analyzes user requirements and produces structured requirement documents.
 
 ## Startup
 
-1. Create session dir `.claude/autodev/<yyyy-mm-dd-requirement-title>` as `<current-autodev-dir>`, write the dir path to `.claude/autodev/ACTIVE`
+1. Read `.claude/autodev/ACTIVE` to get current autodev directory path
 2. Write `analyst` to `<current-autodev-dir>/STATE`
 3. Write user raw requirement to `<current-autodev-dir>/0-requirement-raw.md`
 
