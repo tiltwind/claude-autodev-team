@@ -1,6 +1,6 @@
 # claude-autodev-team (orchestrate)
 
-Multi-agent automatic development workflow using Claude Code's native subagent system instead of hooks.
+Multi-agent automatic development workflow using Claude Code's native subagent system.
 
 ## Install
 

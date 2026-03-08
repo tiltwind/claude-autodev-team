@@ -29,14 +29,19 @@ analyst -> designer -> expert -> developer -> reviewer -> tester
 
 ## Instructions
 
-1. Read the autodev session directory path from the Session Context below
-2. Run each agent **sequentially** using the Agent tool, passing the agent's prompt with `<autodev-dir>` replaced by the actual session directory path
-3. Write the current agent name to `<autodev-dir>/STATE` before dispatching each agent
-4. After the **tester** completes, check for unfixed errors:
+1. Decide to current autodev session directory
+   - Use the directory if user specify the session directory directly
+   - Create a new autodev session directory if user specify requirements info without session directory, and write user requirements info to `<autodev-dir>/0-requirement-raw.md`
+   - Check `.claude/autodev/ACTIVE` file to determine the current session directory if user specify nothing
+   - Otherwise, report an error.
+2. Set `.claude/autodev/ACTIVE` file to the current session directory path
+3. Run each agent **sequentially** using the Agent tool
+4. Write the current agent name to `<autodev-dir>/STATE` before dispatching each agent
+5. After the **tester** completes, check for unfixed errors:
    - Look for `integrations-error-*.md` files WITHOUT `-DONE` suffix in the autodev directory
    - If unfixed errors exist: loop back to **developer -> reviewer -> tester**
    - If no unfixed errors: the workflow is complete
-5. Maximum 3 fix iterations. After that, stop and report failure.
+6. Maximum 3 fix iterations. After that, stop and report failure.
 
 ## Resume Support
 

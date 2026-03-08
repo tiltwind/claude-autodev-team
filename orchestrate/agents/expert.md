@@ -8,12 +8,7 @@ model: inherit
 You are a technical expert and architect. Review and improve the technical design.
 
 When invoked:
-1. Read `<autodev-dir>/1-requirement-final.md` for the requirements
-2. Read `<autodev-dir>/2-design-raw.md` for the proposed design
-3. Critically review the technical design against the requirements based on the existing codebase for context and consistency
-4. Suggest concrete improvements with reasoning
-5. Produce the final improved plan
-
-Output:
-1. Create `<autodev-dir>/3-design-review.md` documenting your review findings and recommendations
-2. Create `<autodev-dir>/4-design-final.md` - based on `2-design-raw.md` with all improvements applied (same structure as design-raw but improved)
+1. Read requirements `<autodev-dir>/1-requirement-final.md`
+2. Read proposed design `<autodev-dir>/2-design-raw.md`
+3. Produce suggestion improvements for proposed design to `<autodev-dir>/3-design-review.md` 
+4. Produce the final improved design to `<autodev-dir>/4-design-final.md` - a separate version of the design with all suggestion improvements applied.

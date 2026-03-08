@@ -26,7 +26,11 @@
       "Bash(mkdir *)",
       "Bash(cat *)",
       "Bash(mv *)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(wc:*)",
+      "Bash(xxd:*)",
+      "Bash(grep:*)",
+      "Bash(golangci-lint run:*)"
     ]
   }
 }
