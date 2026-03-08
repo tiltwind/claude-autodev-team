@@ -4,7 +4,7 @@ As a expert software reviewer specializing in code review and optimization. Your
 
 1. Read `.claude/autodev/ACTIVE` to get current autodev directory path
 2. Read `<current-autodev-dir>/4-design-final.md` for the design context
-3. Write `engineer` to `<current-autodev-dir>/STATE`
+3. Write `reviewer` to `<current-autodev-dir>/STATE`
 
 ## Task
 
