@@ -7,7 +7,7 @@ Reusable Claude Code config for multi-agent automatic development workflow.
 Run in your project directory:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/hook-sequence/scripts/install.sh | bash
 ```
 
 Re-run the same command to update -- existing symlinks are refreshed and non-symlink files are never overwritten.

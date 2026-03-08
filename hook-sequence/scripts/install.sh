@@ -13,6 +13,7 @@ else
 fi
 TEMPLATE_REPO="https://github.com/tiltwind/claude-autodev-team.git"
 TEMPLATE_DIR="$HOME/.claude/claude-autodev-team"
+HOOK_DIR="$TEMPLATE_DIR/hook-sequence"
 
 # 1. Clone or update template
 if [ -d "$TEMPLATE_DIR/.git" ]; then
@@ -26,7 +27,7 @@ fi
 
 # 2. Link individual files in agents/, rules/, commands/
 for subdir in agents rules commands; do
-  src_dir="$TEMPLATE_DIR/$subdir"
+  src_dir="$HOOK_DIR/$subdir"
   dest_dir="$PROJECT_DIR/.claude/$subdir"
   [ -d "$src_dir" ] || continue
   mkdir -p "$dest_dir"
@@ -42,9 +43,9 @@ for subdir in agents rules commands; do
 done
 
 # 3. Link each skill directory as a whole
-if [ -d "$TEMPLATE_DIR/skills" ]; then
+if [ -d "$HOOK_DIR/skills" ]; then
   mkdir -p "$PROJECT_DIR/.claude/skills"
-  for skill_dir in "$TEMPLATE_DIR/skills"/*/; do
+  for skill_dir in "$HOOK_DIR/skills"/*/; do
     [ -d "$skill_dir" ] || continue
     skill_name=$(basename "$skill_dir")
     target="$PROJECT_DIR/.claude/skills/$skill_name"
@@ -57,10 +58,10 @@ if [ -d "$TEMPLATE_DIR/skills" ]; then
 fi
 
 # 4. Link scripts (autodev.sh, autodev-hook.sh)
-if [ -d "$TEMPLATE_DIR/scripts" ]; then
+if [ -d "$HOOK_DIR/scripts" ]; then
   mkdir -p "$PROJECT_DIR/.claude/scripts"
   for script in autodev.sh autodev-hook.sh autodev-pipeline.sh; do
-    src="$TEMPLATE_DIR/scripts/$script"
+    src="$HOOK_DIR/scripts/$script"
     [ -f "$src" ] || continue
     target="$PROJECT_DIR/.claude/scripts/$script"
     if [ -e "$target" ] && [ ! -L "$target" ]; then
@@ -72,13 +73,13 @@ if [ -d "$TEMPLATE_DIR/scripts" ]; then
 fi
 
 # 5. Link settings.local.json
-if [ -f "$TEMPLATE_DIR/settings.local.json" ]; then
+if [ -f "$HOOK_DIR/settings.local.json" ]; then
   target="$PROJECT_DIR/.claude/settings.local.json"
   if [ -e "$target" ] && [ ! -L "$target" ]; then
     echo "Warning: $target exists and is not a symlink, skipping"
   else
     mkdir -p "$PROJECT_DIR/.claude"
-    ln -sfn "$TEMPLATE_DIR/settings.local.json" "$target"
+    ln -sfn "$HOOK_DIR/settings.local.json" "$target"
   fi
 fi
 
