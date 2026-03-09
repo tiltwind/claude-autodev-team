@@ -25,7 +25,7 @@ else
   git clone "$TEMPLATE_REPO" "$TEMPLATE_DIR"
 fi
 
-# 2. Link agent files (skip orchestrator — it's now a command)
+# 2. Link agent files
 src_dir="$ORCH_DIR/orchestrate"
 dest_dir="$PROJECT_DIR/.claude/orchestrate"
 if [ -d "$src_dir" ]; then
