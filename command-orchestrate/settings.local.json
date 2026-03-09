@@ -31,9 +31,9 @@
       "Bash(xxd:*)",
       "Bash(grep:*)",
       "Bash(golangci-lint run:*)",
-      "Read(.claude/autodev/**)",
-      "Write(.claude/autodev/**)",
-      "Edit(.claude/autodev/**)",
+      "Read(.autodev/**)",
+      "Write(.autodev/**)",
+      "Edit(.autodev/**)",
       "Read(.claude/orchestrate/**)"
     ]
   }

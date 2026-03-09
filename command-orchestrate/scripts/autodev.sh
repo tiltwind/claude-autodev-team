@@ -3,6 +3,7 @@
 #
 # Usage:
 #   bash .claude/scripts/autodev.sh "requirement description"
+#   bash .claude/scripts/autodev.sh --resume  
 #
 # Uses Claude Code's native agent system with subagents instead of hooks.
 set -euo pipefail
