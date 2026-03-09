@@ -38,8 +38,8 @@ All agents are defined as Claude Code subagent `.md` files with YAML frontmatter
 | **designer** | Technical Designer | `1-requirement-final.md` | `2-design-raw.md` |
 | **expert** | Technical Expert | `1-requirement-final.md`, `2-design-raw.md` | `3-design-review.md`, `4-design-final.md` |
 | **developer** | Developer | `4-design-final.md` (or `integrations-error-<N>.md`) | Source code + unit tests |
-| **reviewer** | Code Review Engineer | `4-design-final.md` + changed code | Improved source code |
-| **tester** | Integration Tester | `4-design-final.md` + source code | `5-test-report.md` or `integrations-error-<N>.md` |
+| **reviewer** | Code Review Engineer | `4-design-final.md` + changed code | `5-code-review.md`, Improved source code |
+| **tester** | Integration Tester | `4-design-final.md` + source code | `6-test-report.md` or `integrations-error-<N>.md` |
 
 ### Document Flow
 
@@ -49,7 +49,8 @@ All agents are defined as Claude Code subagent `.md` files with YAML frontmatter
 2-design-raw.md             # Technical design and implementation plan
 3-design-review.md          # Expert review: issues found and recommendations
 4-design-final.md           # Improved design (same structure as 2-design-raw.md)
-5-test-report.md            # Final test report (when all tests pass)
+5-code-review.md            # Code review: issues found and recommendations
+6-test-report.md            # Final test report (when all tests pass)
 integrations-error-<N>.md   # Test failure report (triggers developer fix loop)
 integrations-error-<N>-DONE.md  # Fixed error (renamed by developer)
 ```

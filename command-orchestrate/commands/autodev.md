@@ -44,6 +44,6 @@ analyst -> designer -> expert -> developer -> reviewer -> tester
 If `<autodev-dir>/STATE` already exists when starting:
 - Read the state to determine which agent completed last
 - Skip already-completed phases and continue from the next agent
-- State progression: analyst -> designer -> expert -> developer -> reviewer -> tester -> done
+- State progression: @analyst -> @designer -> @expert -> @developer -> @reviewer -> @tester -> done
 
 
