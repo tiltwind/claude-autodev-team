@@ -26,14 +26,13 @@ else
 fi
 
 # 2. Link agent files (skip orchestrator — it's now a command)
-src_dir="$ORCH_DIR/agents"
-dest_dir="$PROJECT_DIR/.claude/agents"
+src_dir="$ORCH_DIR/orchestrate"
+dest_dir="$PROJECT_DIR/.claude/orchestrate"
 if [ -d "$src_dir" ]; then
   mkdir -p "$dest_dir"
   for file in "$src_dir"/*.md; do
     [ -f "$file" ] || continue
     basename="$(basename "$file")"
-    [ "$basename" = "orchestrator.md" ] && continue
     target="$dest_dir/$basename"
     if [ -e "$target" ] && [ ! -L "$target" ]; then
       echo "Warning: $target exists and is not a symlink, skipping"
@@ -41,9 +40,6 @@ if [ -d "$src_dir" ]; then
     fi
     ln -sfn "$file" "$target"
   done
-  # Clean up old orchestrator symlink if present
-  old_orch="$dest_dir/orchestrator.md"
-  [ -L "$old_orch" ] && rm -f "$old_orch"
 fi
 
 # 2b. Link command files
