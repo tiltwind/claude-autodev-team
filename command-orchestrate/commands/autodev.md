@@ -5,9 +5,9 @@ Orchestrate the autodev multi-agent development pipeline. Coordinate analyst, de
 1. Determine the current autodev session directory as `<autodev-dir>`:
    - Use the directory if user specifies the session directory in `$ARGUMENTS`
    - Create a new autodev session directory if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<autodev-dir>/0-requirement-raw.md`
-   - Check `.claude/autodev/ACTIVE` file to determine the current session directory if `$ARGUMENTS` is empty
+   - Check `.autodev/ACTIVE` file to determine the current session directory if `$ARGUMENTS` is empty
    - Otherwise, report an error.
-2. Write `<autodev-dir>` to `.claude/autodev/ACTIVE`
+2. Write `<autodev-dir>` to `.autodev/ACTIVE`
 3. Run each sub-agent in sequential pipeline:
    - Write the current sub-agent name to `<autodev-dir>/STATE` before dispatching each sub-agent
    - **CRITICAL**: For each sub-agent, first **Read** its definition file `.claude/orchestrate/<agent-name>.md`, then use the file's body content as the sub-agent's prompt, with `<autodev-dir>` replaced by the actual session directory path. This ensures each sub-agent follows its exact instructions and file naming conventions.
@@ -19,7 +19,7 @@ Orchestrate the autodev multi-agent development pipeline. Coordinate analyst, de
    - Maximum 3 fix iterations. After that, stop and report failure.
 4. When the workflow is complete:
    - Write `done` to `<autodev-dir>/STATE`
-   - Remove `.claude/autodev/ACTIVE` file
+   - Remove `.autodev/ACTIVE` file
    - Output a summary of what was accomplished
 
 

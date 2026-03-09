@@ -89,6 +89,6 @@ if [ -f "$ORCH_DIR/settings.local.json" ]; then
 fi
 
 # 5. Create autodev directory
-mkdir -p "$PROJECT_DIR/.claude/autodev"
+mkdir -p "$PROJECT_DIR/.autodev"
 
 echo "Done. Template linked into $PROJECT_DIR/.claude/"
