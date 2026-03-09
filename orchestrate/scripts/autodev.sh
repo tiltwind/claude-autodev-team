@@ -16,6 +16,6 @@ log() {
 
 REQUIREMENT=$1
 
-claude --agent orchestrator -p "$REQUIREMENT" --verbose
+claude -p "/autodev $REQUIREMENT" --verbose
 
 log "Orchestrator finished"

@@ -14,15 +14,19 @@ Re-run the same command to update -- existing symlinks are refreshed and non-sym
 
 ## Workflow
 
-Six agents collaborate through a shared directory `.claude/autodev/<YYYY-MM-DD-short-name>/`, orchestrated by a single Claude Code session using the native Agent tool (subagents).
+Six agents collaborate through a shared directory `.claude/autodev/<YYYY-MM-DD-short-name>/`, orchestrated by a custom slash command `/autodev` that runs in the main Claude Code conversation and dispatches sub-agents via the Agent tool.
 
 ```
-orchestrator (claude --agent orchestrator)
+/autodev command (main conversation)
   |-> analyst  ->  designer  ->  expert  ->  developer  ->  reviewer  ->  tester
                                                  ^                            |
                                                  |     (if tests fail)        |
                                                  +----------------------------+
 ```
+
+### Architecture
+
+The `/autodev` command acts as an "orchestration script" — it injects pipeline logic into the main conversation, which then serially calls each sub-agent using the Agent tool. This avoids the limitation that sub-agents cannot call other sub-agents.
 
 ### Agents
 
@@ -30,7 +34,6 @@ All agents are defined as Claude Code subagent `.md` files with YAML frontmatter
 
 | Agent | Role | Input | Output |
 |-------|------|-------|--------|
-| **orchestrator** | Coordinates all agents via Agent tool | User requirement | Manages pipeline flow |
 | **analyst** | Requirement Analyst | User's requirement | `0-requirement-raw.md`, `1-requirement-final.md` |
 | **designer** | Technical Designer | `1-requirement-final.md` | `2-design-raw.md` |
 | **expert** | Technical Expert | `1-requirement-final.md`, `2-design-raw.md` | `3-design-review.md`, `4-design-final.md` |
@@ -70,43 +73,43 @@ Run from the terminal:
 bash .claude/scripts/autodev.sh "implement user login with email and phone number"
 ```
 
+Or use the slash command directly in a Claude Code session:
+
+```
+/autodev implement user login with email and phone number
+```
+
 Resume an interrupted session:
 
-```bash
-bash .claude/scripts/autodev.sh --resume
+```
+/autodev
 ```
 
 **NOTE**: ALWAYS PROVIDE COMPLETED REQUIREMENTS.
 
-## How It Works (vs hook-sequence)
+## How It Works
 
-### hook-sequence approach
-- Uses Claude Code's Stop hooks to chain agents
-- Each agent runs as a separate `claude -p` invocation
-- Shell scripts (`autodev-hook.sh`, `autodev-pipeline.sh`) manage state machine
-- Requires hook configuration in `settings.local.json`
-
-### orchestrate approach
-- Single Claude Code session runs `claude --agent orchestrator`
-- Orchestrator dispatches sub-agents via the native Agent tool
+- The `/autodev` command injects orchestration logic into the main Claude Code conversation
+- The main conversation dispatches sub-agents sequentially via the Agent tool
 - Each sub-agent is a `.md` file with YAML frontmatter (`name`, `description`, `tools`, `model`)
-- No hooks needed - the orchestrator manages flow directly
-- Simpler setup, fewer moving parts
-- Better error handling and context sharing
+- No hooks needed — the command manages flow directly
+- Sub-agents don't need to call other sub-agents (which isn't supported)
 
 ## Project Structure
 
 ```
+commands/
+  autodev.md          # Orchestration command (slash command /autodev)
 agents/
-  orchestrator.md     # Orchestrator agent (dispatches sub-agents)
   analyst.md          # Requirement analyst sub-agent
   designer.md         # Technical designer sub-agent
   expert.md           # Technical expert sub-agent
   developer.md        # Developer sub-agent
   reviewer.md         # Code review sub-agent
   tester.md           # Integration tester sub-agent
+  orchestrator.md     # (legacy, no longer used — kept for reference)
 scripts/
   install.sh          # Install script (symlinks into target project)
-  autodev.sh          # Entry point - sets up session, launches orchestrator
+  autodev.sh          # Entry point - launches /autodev command
 settings.local.json   # Permissions (no hooks needed)
 ```
