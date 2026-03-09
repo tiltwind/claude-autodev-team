@@ -10,9 +10,11 @@ Orchestrate the autodev multi-agent development pipeline. Coordinate analyst, de
 2. Write `<autodev-dir>` to `.claude/autodev/ACTIVE`
 3. Run each sub-agent in sequential pipeline:
    - Write the current sub-agent name to `<autodev-dir>/STATE` before dispatching each sub-agent
-   - After the **@tester** sub-agent completes, check for unfixed errors:
+   - **CRITICAL**: For each sub-agent, first **Read** its definition file `.claude/orchestrate/<agent-name>.md`, then use the file's body content as the sub-agent's prompt, with `<autodev-dir>` replaced by the actual session directory path. This ensures each sub-agent follows its exact instructions and file naming conventions.
+   - Call the Agent tool with: `description: "<agent-name> phase"`, `subagent_type: "general-purpose"`, `prompt: <the agent instructions with autodev-dir substituted>`
+   - After the **tester** sub-agent completes, check for unfixed errors:
       - Look for `integrations-error-*.md` files WITHOUT `-DONE` suffix in the autodev directory
-      - If unfixed errors exist: loop back to **@developer -> @reviewer -> @tester**
+      - If unfixed errors exist: loop back to **developer -> reviewer -> tester**
       - If no unfixed errors: the workflow is complete
    - Maximum 3 fix iterations. After that, stop and report failure.
 4. When the workflow is complete:
@@ -30,13 +32,12 @@ analyst -> designer -> expert -> developer -> reviewer -> tester
                                     +------------------------+
 ```
 
-
-1. **@analyst** : Requirement Analyst 
-2. **@designer** : Technical Designer 
-3. **@expert** : Technical Expert 
-4. **@developer** : Code Developer 
-5. **@reviewer** : Code Reviewer 
-6. **@tester** : Integration Tester 
+1. **analyst** : Requirement Analyst 
+2. **designer** : Technical Designer 
+3. **expert** : Technical Expert 
+4. **developer** : Code Developer 
+5. **reviewer** : Code Reviewer 
+6. **tester** : Integration Tester 
 
 
 ## Resume Support
@@ -44,6 +45,6 @@ analyst -> designer -> expert -> developer -> reviewer -> tester
 If `<autodev-dir>/STATE` already exists when starting:
 - Read the state to determine which agent completed last
 - Skip already-completed phases and continue from the next agent
-- State progression: @analyst -> @designer -> @expert -> @developer -> @reviewer -> @tester -> done
+- State progression: analyst -> designer -> expert -> developer -> reviewer -> tester -> done
 
 
