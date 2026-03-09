@@ -39,6 +39,7 @@ if [ -d "$src_dir" ]; then
       continue
     fi
     ln -sfn "$file" "$target"
+    echo "  Linked: $target -> $file"
   done
 fi
 
@@ -55,6 +56,7 @@ if [ -d "$src_dir" ]; then
       continue
     fi
     ln -sfn "$file" "$target"
+    echo "  Linked: $target -> $file"
   done
 fi
 
@@ -70,6 +72,7 @@ if [ -d "$ORCH_DIR/scripts" ]; then
       continue
     fi
     ln -sfn "$src" "$target"
+    echo "  Linked: $target -> $src"
   done
 fi
 
@@ -81,6 +84,7 @@ if [ -f "$ORCH_DIR/settings.local.json" ]; then
   else
     mkdir -p "$PROJECT_DIR/.claude"
     ln -sfn "$ORCH_DIR/settings.local.json" "$target"
+    echo "  Linked: $target -> $ORCH_DIR/settings.local.json"
   fi
 fi
 
