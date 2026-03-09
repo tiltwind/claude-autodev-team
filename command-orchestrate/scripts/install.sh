@@ -83,8 +83,8 @@ if [ -f "$ORCH_DIR/settings.local.json" ]; then
     echo "Warning: $target exists and is not a symlink, skipping"
   else
     mkdir -p "$PROJECT_DIR/.claude"
-    ln -sfn "$ORCH_DIR/settings.local.json" "$target"
-    echo "  Linked: $target -> $ORCH_DIR/settings.local.json"
+    cp "$ORCH_DIR/settings.local.json" "$target"
+    echo "  Copied: $ORCH_DIR/settings.local.json -> $target"
   fi
 fi
 
