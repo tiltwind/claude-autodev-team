@@ -7,7 +7,7 @@ Multi-agent automatic development workflow using Claude Code's native subagent s
 Run in your project directory:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/orchestrate/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/command-orchestrate/scripts/install.sh | bash
 ```
 
 Re-run the same command to update -- existing symlinks are refreshed and non-symlink files are never overwritten.

@@ -13,7 +13,7 @@ else
 fi
 TEMPLATE_REPO="https://github.com/tiltwind/claude-autodev-team.git"
 TEMPLATE_DIR="$HOME/.claude/claude-autodev-team"
-ORCH_DIR="$TEMPLATE_DIR/orchestrate"
+ORCH_DIR="$TEMPLATE_DIR/command-orchestrate"
 
 # 1. Clone or update template
 if [ -d "$TEMPLATE_DIR/.git" ]; then
