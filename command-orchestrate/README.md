@@ -14,7 +14,7 @@ Re-run the same command to update -- existing symlinks are refreshed and non-sym
 
 ## Workflow
 
-Six agents collaborate through a shared directory `.autodev/<YYYY-MM-DD-short-name>/`, orchestrated by a custom slash command `/autodev` that runs in the main Claude Code conversation and dispatches sub-agents via the Agent tool.
+Six agents collaborate through a shared directory `.autodev/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<short-name>/`, orchestrated by a custom slash command `/autodev` that runs in the main Claude Code conversation and dispatches sub-agents via the Agent tool.
 
 ```
 /autodev command (main conversation)

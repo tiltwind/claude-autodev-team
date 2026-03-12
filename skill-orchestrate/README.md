@@ -26,7 +26,7 @@ Re-run the same command to update.
 
 ## Workflow
 
-Six agents collaborate through a shared directory `.autodev/<YYYY-MM-DD-short-name>/`, orchestrated by the `/autodev` skill that runs in the main Claude Code conversation and dispatches sub-agents via the Agent tool.
+Six agents collaborate through a shared directory `.autodev/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<short-name>/`, orchestrated by the `/autodev` skill that runs in the main Claude Code conversation and dispatches sub-agents via the Agent tool.
 
 ```
 /autodev skill (main conversation)

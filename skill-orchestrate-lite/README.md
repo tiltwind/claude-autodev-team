@@ -14,7 +14,7 @@ Re-run the same command to update.
 
 ## Workflow
 
-Four agents collaborate through a shared directory `.autodev/<YYYY-MM-DD-short-name>/`, orchestrated by the `/autodev-lite` skill that runs in the main Claude Code conversation and dispatches sub-agents via the Agent tool.
+Four agents collaborate through a shared directory `.autodev/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<short-name>/`, orchestrated by the `/autodev-lite` skill that runs in the main Claude Code conversation and dispatches sub-agents via the Agent tool.
 
 ```
 /autodev-lite skill (main conversation)

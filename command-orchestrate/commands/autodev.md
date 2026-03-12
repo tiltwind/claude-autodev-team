@@ -4,7 +4,7 @@ Orchestrate the autodev multi-agent development pipeline. Coordinate analyst, de
 
 1. Determine the current autodev session directory as `<autodev-session-dir>`:
    - Use the directory if user specifies the session directory in `$ARGUMENTS`
-   - Create a new autodev session directory in formart `YYYY-MM-DD-<requirement-short-name>` if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<autodev-session-dir>/0-requirement-raw.md`
+   - Create a new autodev session directory in format `<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<autodev-session-dir>/0-requirement-raw.md`
    - Check `.autodev/ACTIVE` file to determine the current session directory if `$ARGUMENTS` is empty
    - Otherwise, report an error.
 2. Write `<autodev-session-dir>` to `.autodev/ACTIVE`
