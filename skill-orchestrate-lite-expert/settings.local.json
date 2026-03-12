@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Agent",
+      "Skill(autodev-lite-expert *)",
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(bun *)",
+      "Bash(pnpm *)",
+      "Bash(yarn *)",
+      "Bash(go *)",
+      "Bash(cargo *)",
+      "Bash(python *)",
+      "Bash(pip *)",
+      "Bash(pytest *)",
+      "Bash(mvn *)",
+      "Bash(gradle *)",
+      "Bash(make *)",
+      "Bash(ls *)",
+      "Bash(mkdir *)",
+      "Bash(cat *)",
+      "Bash(mv *)",
+      "Bash(mkdir:*)",
+      "Bash(wc:*)",
+      "Bash(xxd:*)",
+      "Bash(grep:*)",
+      "Bash(golangci-lint run:*)",
+      "Read(.autodev/**)",
+      "Write(.autodev/**)",
+      "Edit(.autodev/**)"
+    ]
+  }
+}
