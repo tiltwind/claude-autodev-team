@@ -2,21 +2,21 @@ Orchestrate the autodev multi-agent development pipeline. Coordinate analyst, de
 
 ## Instructions
 
-1. Determine the current autodev session directory as `<autodev-session-dir>`:
+1. Determine the current autodev session directory as `<dev-session-dir>`:
    - Use the directory if user specifies the session directory in `$ARGUMENTS`
-   - Create a new autodev session directory in format `.autodev/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>.md` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<autodev-session-dir>/0-requirement-raw.md`
+   - Create a new autodev session directory in format `.autodev/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>.md` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<dev-session-dir>/0-requirement-raw.md`
    - Otherwise, require user to specify the session directory or requirements info
 2. Run each sub-agent in sequential pipeline:
-   - Write the current sub-agent name to `<autodev-session-dir>/STATE` before dispatching each sub-agent
+   - Write the current sub-agent name to `<dev-session-dir>/STATE` before dispatching each sub-agent
    - **CRITICAL**: For each sub-agent, first **Read** its definition file `.claude/orchestrate/<agent-name>.md`, then use the file's body content as the sub-agent's prompt, with `<autodev-dir>` replaced by the actual session directory path. This ensures each sub-agent follows its exact instructions and file naming conventions.
-   - Call the Agent tool with: `description: "<agent-name> phase"`, `subagent_type: "general-purpose"`, `prompt: <the agent instructions with autodev-session-dir substituted>`
+   - Call the Agent tool with: `description: "<agent-name> phase"`, `subagent_type: "general-purpose"`, `prompt: <the agent instructions with dev-session-dir substituted>`
    - After the **tester** sub-agent completes, check for unfixed errors:
       - Look for `integrations-error-*.md` files WITHOUT `-DONE` suffix in the autodev directory
       - If unfixed errors exist: loop back to **developer -> reviewer -> tester**
       - If no unfixed errors: the workflow is complete
    - Maximum 3 fix iterations. After that, stop and report failure.
 3. When the workflow is complete:
-   - Write `done` to `<autodev-session-dir>/STATE`
+   - Write `done` to `<dev-session-dir>/STATE`
    - Output a summary of what was accomplished
 
 
@@ -39,7 +39,7 @@ analyst -> designer -> expert -> developer -> reviewer -> tester
 
 ## Resume Support
 
-If `<autodev-session-dir>/STATE` already exists when starting:
+If `<dev-session-dir>/STATE` already exists when starting:
 - Read the state to determine which agent completed last
 - Skip already-completed phases and continue from the next agent
 - State progression: analyst -> designer -> expert -> developer -> reviewer -> tester -> done

@@ -1,28 +1,29 @@
 ---
-name: autodev
-description: Orchestrate the autodev multi-agent development pipeline. Coordinate analyst, designer, expert, developer, reviewer, and tester sub-agents to turn requirements into tested code.
+name: metalclaw-dev-full
+description: Orchestrate the full MetalClaw multi-agent development pipeline. Coordinate analyst, designer, expert, developer, reviewer, and tester sub-agents to turn requirements into tested code.
 argument-hint: [requirement description or session directory]
 allowed-tools: Read, Write, Edit, Glob, Grep, Agent, Bash
 ---
 
-Orchestrate the autodev multi-agent development pipeline.
+Orchestrate the full MetalClaw multi-agent development pipeline.
 
 ## Instructions
 
-1. Determine the current autodev session directory as `<dev-session-dir>`:
+1. Determine the root document directory as `<root-doc-dir>`, use the directory if user specifies, default to `doc/`
+2. Determine the current dev session directory as `<dev-session-dir>`:
    - Use the directory if user specifies the session directory in `$ARGUMENTS`
-   - Create a new autodev session directory in format `.autodev/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>/` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<dev-session-dir>/0-requirement-raw.md`
+   - Create a new dev session directory in format `<root-doc-dir>/changes/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>/` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<dev-session-dir>/0-requirement-raw.md`
    - Otherwise, require user to specify the session directory or requirements info
-2. Run each sub-agent in sequential pipeline:
+3. Run each sub-agent in sequential pipeline:
    - Write the current sub-agent name to `<dev-session-dir>/STATE` before dispatching each sub-agent
-   - **CRITICAL**: For each sub-agent, first **Read** its definition file `${CLAUDE_SKILL_DIR}/agents/<agent-name>.md`, then use the file's content as the sub-agent's prompt, with `<dev-session-dir>` replaced by the actual session directory path. This ensures each sub-agent follows its exact instructions and file naming conventions.
+   - **CRITICAL**: For each sub-agent, first **Read** its definition file `${CLAUDE_SKILL_DIR}/metalclaw-sub-agents/<agent-name>.md`, then use the file's content as the sub-agent's prompt, with `<dev-session-dir>` replaced by the actual session directory path. This ensures each sub-agent follows its exact instructions and file naming conventions.
    - Call the Agent tool with: `description: "<agent-name> phase"`, `subagent_type: "general-purpose"`, `prompt: <the agent instructions with dev-session-dir substituted>`
    - After the **tester** sub-agent completes, check for unfixed errors:
-      - Look for `integrations-error-*.md` files WITHOUT `-DONE` suffix in the autodev directory
+      - Look for `integrations-error-*.md` files WITHOUT `-DONE` suffix in the dev session directory
       - If unfixed errors exist: loop back to **developer -> reviewer -> tester**
       - If no unfixed errors: the workflow is complete
    - Maximum 3 fix iterations. After that, stop and report failure.
-3. When the workflow is complete:
+4. When the workflow is complete:
    - Write `done` to `<dev-session-dir>/STATE`
    - Output a summary of what was accomplished
 
