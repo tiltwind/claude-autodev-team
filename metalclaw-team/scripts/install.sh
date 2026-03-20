@@ -1,69 +1,59 @@
-#!/bin/bash
-# Install all MetalClaw skills from metalclaw-team/skills/ directory
-# Usage: bash metalclaw-team/scripts/install.sh [target_settings_file]
+#!/usr/bin/env bash
+set -euo pipefail
 
-set -e
-
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-TEAM_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-SKILLS_SRC_DIR="$TEAM_DIR/skills"
+TEMPLATE_REPO="https://github.com/tiltwind/claude-autodev-team.git"
+TEMPLATE_DIR="$HOME/.claude/claude-autodev-team"
+TEAM_DIR="$TEMPLATE_DIR/metalclaw-team"
+SKILLS_DIR="$TEAM_DIR/skills"
 SUB_AGENTS_DIR="$TEAM_DIR/metalclaw-sub-agents"
 
 # Default target: user's global Claude settings
-CLAUDE_DIR="${HOME}/.claude"
-TARGET_SETTINGS="${1:-${CLAUDE_DIR}/settings.json}"
+TARGET_SETTINGS="${1:-${HOME}/.claude/settings.json}"
 
 echo "=== MetalClaw Skills Installer ==="
-echo "Source: $SKILLS_SRC_DIR"
-echo "Sub-agents: $SUB_AGENTS_DIR"
-echo "Target settings: $TARGET_SETTINGS"
+
+# 1. Clone or update template
+if [ -d "$TEMPLATE_DIR/.git" ]; then
+  echo "Updating template in $TEMPLATE_DIR..."
+  git -C "$TEMPLATE_DIR" pull --ff-only
+else
+  echo "Cloning template to $TEMPLATE_DIR..."
+  mkdir -p "$(dirname "$TEMPLATE_DIR")"
+  git clone "$TEMPLATE_REPO" "$TEMPLATE_DIR"
+fi
+
 echo ""
+echo "Target settings: $TARGET_SETTINGS"
 
-# Ensure target directory exists
+# Ensure target directory and settings file exist
 mkdir -p "$(dirname "$TARGET_SETTINGS")"
-
-# Initialize settings file if it doesn't exist
 if [ ! -f "$TARGET_SETTINGS" ]; then
   echo '{}' > "$TARGET_SETTINGS"
 fi
 
-# Collect all skills (directories containing SKILL.md)
-SKILLS=()
-for skill_dir in "$SKILLS_SRC_DIR"/*/; do
-  if [ -f "${skill_dir}SKILL.md" ]; then
-    skill_name=$(basename "$skill_dir")
-    SKILLS+=("$skill_name")
-    echo "Found skill: $skill_name"
-  fi
-done
-
-if [ ${#SKILLS[@]} -eq 0 ]; then
-  echo "No skills found in $SKILLS_SRC_DIR"
-  exit 0
-fi
-
+# 2. Link metalclaw-sub-agents into each skill directory
 echo ""
-
-# Link metalclaw-sub-agents into each skill directory
 echo "Linking metalclaw-sub-agents..."
-for skill_name in "${SKILLS[@]}"; do
-  skill_path="$SKILLS_SRC_DIR/$skill_name"
-  link_path="$skill_path/metalclaw-sub-agents"
+for skill_dir in "$SKILLS_DIR"/*/; do
+  [ -f "${skill_dir}SKILL.md" ] || continue
+  skill_name=$(basename "$skill_dir")
+  link_path="${skill_dir}metalclaw-sub-agents"
   if [ -L "$link_path" ]; then
     rm "$link_path"
   fi
-  if [ -d "$SUB_AGENTS_DIR" ]; then
-    ln -s "$SUB_AGENTS_DIR" "$link_path"
-    echo "  Linked: $skill_name/metalclaw-sub-agents -> $SUB_AGENTS_DIR"
-  fi
+  ln -sfn "$SUB_AGENTS_DIR" "$link_path"
+  echo "  Linked: $skill_name/metalclaw-sub-agents -> $SUB_AGENTS_DIR"
 done
 
+# 3. Register all skills in settings.json
 echo ""
-echo "Installing ${#SKILLS[@]} skill(s)..."
+echo "Installing skills..."
 
-# Install each skill by adding to settings.json
-for skill_name in "${SKILLS[@]}"; do
-  skill_path="$SKILLS_SRC_DIR/$skill_name"
+SKILL_COUNT=0
+for skill_dir in "$SKILLS_DIR"/*/; do
+  [ -f "${skill_dir}SKILL.md" ] || continue
+  skill_name=$(basename "$skill_dir")
+  skill_path="$SKILLS_DIR/$skill_name"
 
   if command -v python3 &> /dev/null; then
     python3 -c "
@@ -98,9 +88,10 @@ print(f'  Installed: {skill_name} -> {skill_path}')
     echo "Error: python3 or jq is required to update settings.json"
     exit 1
   fi
+  SKILL_COUNT=$((SKILL_COUNT + 1))
 done
 
 echo ""
 echo "=== Installation complete ==="
-echo "Skills installed to: $TARGET_SETTINGS"
+echo "$SKILL_COUNT skill(s) installed to: $TARGET_SETTINGS"
 echo "You can now use these skills in Claude Code."

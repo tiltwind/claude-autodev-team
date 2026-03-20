@@ -1,10 +1,10 @@
-# claude-autodev-team (skill-orchestrate)
+# claude-autodev-team (autodev-skill-full)
 
 Multi-agent automatic development workflow using Claude Code's **skill system**.
 
-## Comparison with command-orchestrate
+## Comparison with autodev-command-full
 
-| Aspect | command-orchestrate | skill-orchestrate |
+| Aspect | autodev-command-full | autodev-skill-full |
 |--------|-------------------|-------------------|
 | Entry point | `.claude/commands/autodev.md` | `.claude/skills/autodev/SKILL.md` |
 | Sub-agent storage | `.claude/orchestrate/*.md` (separate dir) | `.claude/skills/autodev/agents/*.md` (bundled) |
@@ -19,7 +19,7 @@ Multi-agent automatic development workflow using Claude Code's **skill system**.
 Run in your project directory:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/skill-orchestrate/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/autodev-skill-full/scripts/install.sh | bash
 ```
 
 Re-run the same command to update.
@@ -99,7 +99,7 @@ Resume an interrupted session:
 ## Project Structure
 
 ```
-skill-orchestrate/
+autodev-skill-full/
 ├── README.md
 ├── settings.local.json
 ├── skills/

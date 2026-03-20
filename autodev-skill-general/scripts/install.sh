@@ -13,7 +13,7 @@ else
 fi
 TEMPLATE_REPO="https://github.com/tiltwind/claude-autodev-team.git"
 TEMPLATE_DIR="$HOME/.claude/claude-autodev-team"
-ORCH_DIR="$TEMPLATE_DIR/skill-orchestrate-lite"
+ORCH_DIR="$TEMPLATE_DIR/autodev-skill-general"
 
 # 1. Clone or update template
 if [ -d "$TEMPLATE_DIR/.git" ]; then
@@ -26,8 +26,8 @@ else
 fi
 
 # 2. Link skill directory
-src_dir="$ORCH_DIR/skills/autodev-lite"
-dest_dir="$PROJECT_DIR/.claude/skills/autodev-lite"
+src_dir="$ORCH_DIR/skills/autodev-lite-expert"
+dest_dir="$PROJECT_DIR/.claude/skills/autodev-lite-expert"
 if [ -d "$src_dir" ]; then
   if [ -e "$dest_dir" ] && [ ! -L "$dest_dir" ]; then
     echo "Warning: $dest_dir exists and is not a symlink, skipping"
@@ -41,7 +41,7 @@ fi
 # 3. Link scripts
 if [ -d "$ORCH_DIR/scripts" ]; then
   mkdir -p "$PROJECT_DIR/.claude/scripts"
-  for script in autodev-lite.sh; do
+  for script in autodev-lite-expert.sh; do
     src="$ORCH_DIR/scripts/$script"
     [ -f "$src" ] || continue
     target="$PROJECT_DIR/.claude/scripts/$script"

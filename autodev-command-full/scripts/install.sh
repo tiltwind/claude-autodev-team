@@ -13,7 +13,7 @@ else
 fi
 TEMPLATE_REPO="https://github.com/tiltwind/claude-autodev-team.git"
 TEMPLATE_DIR="$HOME/.claude/claude-autodev-team"
-ORCH_DIR="$TEMPLATE_DIR/skill-orchestrate-lite-expert"
+ORCH_DIR="$TEMPLATE_DIR/autodev-command-full"
 
 # 1. Clone or update template
 if [ -d "$TEMPLATE_DIR/.git" ]; then
@@ -25,23 +25,45 @@ else
   git clone "$TEMPLATE_REPO" "$TEMPLATE_DIR"
 fi
 
-# 2. Link skill directory
-src_dir="$ORCH_DIR/skills/autodev-lite-expert"
-dest_dir="$PROJECT_DIR/.claude/skills/autodev-lite-expert"
+# 2. Link agent files
+src_dir="$ORCH_DIR/orchestrate"
+dest_dir="$PROJECT_DIR/.claude/orchestrate"
 if [ -d "$src_dir" ]; then
-  if [ -e "$dest_dir" ] && [ ! -L "$dest_dir" ]; then
-    echo "Warning: $dest_dir exists and is not a symlink, skipping"
-  else
-    mkdir -p "$PROJECT_DIR/.claude/skills"
-    ln -sfn "$src_dir" "$dest_dir"
-    echo "  Linked: $dest_dir -> $src_dir"
-  fi
+  mkdir -p "$dest_dir"
+  for file in "$src_dir"/*.md; do
+    [ -f "$file" ] || continue
+    basename="$(basename "$file")"
+    target="$dest_dir/$basename"
+    if [ -e "$target" ] && [ ! -L "$target" ]; then
+      echo "Warning: $target exists and is not a symlink, skipping"
+      continue
+    fi
+    ln -sfn "$file" "$target"
+    echo "  Linked: $target -> $file"
+  done
+fi
+
+# 2b. Link command files
+src_dir="$ORCH_DIR/commands"
+dest_dir="$PROJECT_DIR/.claude/commands"
+if [ -d "$src_dir" ]; then
+  mkdir -p "$dest_dir"
+  for file in "$src_dir"/*.md; do
+    [ -f "$file" ] || continue
+    target="$dest_dir/$(basename "$file")"
+    if [ -e "$target" ] && [ ! -L "$target" ]; then
+      echo "Warning: $target exists and is not a symlink, skipping"
+      continue
+    fi
+    ln -sfn "$file" "$target"
+    echo "  Linked: $target -> $file"
+  done
 fi
 
 # 3. Link scripts
 if [ -d "$ORCH_DIR/scripts" ]; then
   mkdir -p "$PROJECT_DIR/.claude/scripts"
-  for script in autodev-lite-expert.sh; do
+  for script in autodev.sh; do
     src="$ORCH_DIR/scripts/$script"
     [ -f "$src" ] || continue
     target="$PROJECT_DIR/.claude/scripts/$script"
@@ -54,7 +76,7 @@ if [ -d "$ORCH_DIR/scripts" ]; then
   done
 fi
 
-# 4. Copy settings.local.json
+# 4. Link settings.local.json
 if [ -f "$ORCH_DIR/settings.local.json" ]; then
   target="$PROJECT_DIR/.claude/settings.local.json"
   if [ -e "$target" ] && [ ! -L "$target" ]; then
@@ -69,4 +91,4 @@ fi
 # 5. Create autodev directory
 mkdir -p "$PROJECT_DIR/.autodev"
 
-echo "Done. Skill installed into $PROJECT_DIR/.claude/"
+echo "Done. Template linked into $PROJECT_DIR/.claude/"

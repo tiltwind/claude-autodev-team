@@ -2,6 +2,13 @@
 
 MetalClaw 多智能体开发流水线技能集，用于 Claude Code。通过协调多个子智能体（analyst、designer、expert、developer、reviewer、tester）将需求转化为经过测试的代码。
 
+## 安装
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/metalclaw-team/scripts/install.sh | bash
+```
+
+
 ## 目录结构
 
 ```
@@ -62,19 +69,6 @@ analyst -> designer -> developer
 
 适用于快速从需求到代码的开发场景。
 
-## 安装
-
-运行安装脚本将所有技能注册到 Claude Code settings：
-
-```bash
-bash metalclaw-team/scripts/install.sh
-```
-
-可指定目标 settings 文件：
-
-```bash
-bash metalclaw-team/scripts/install.sh /path/to/settings.json
-```
 
 ## 使用方式
 

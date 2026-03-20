@@ -1,13 +1,13 @@
-# claude-autodev-team (skill-orchestrate-lite)
+# claude-autodev-team (autodev-skill-lite)
 
-Lightweight multi-agent automatic development workflow using Claude Code's **skill system**. A simplified version of `skill-orchestrate` with 4 agents instead of 6.
+Lightweight multi-agent automatic development workflow using Claude Code's **skill system**. A simplified version of `autodev-skill-full` with 4 agents instead of 6.
 
 ## Install
 
 Run in your project directory:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/skill-orchestrate-lite/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/autodev-skill-lite/scripts/install.sh | bash
 ```
 
 Re-run the same command to update.
@@ -60,7 +60,7 @@ Resume an interrupted session:
 ## Project Structure
 
 ```
-skill-orchestrate-lite/
+autodev-skill-lite/
 ├── README.md
 ├── settings.local.json
 ├── skills/

@@ -1,13 +1,13 @@
-# claude-autodev-team (skill-orchestrate-lite-expert)
+# claude-autodev-team (autodev-skill-general)
 
-Lightweight multi-agent automatic development workflow with expert code review, using Claude Code's **skill system**. An enhanced version of `skill-orchestrate-lite` that adds an expert review phase after development.
+Lightweight multi-agent automatic development workflow with expert code review, using Claude Code's **skill system**. An enhanced version of `autodev-skill-lite` that adds an expert review phase after development.
 
 ## Install
 
 Run in your project directory:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/skill-orchestrate-lite-expert/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/tiltwind/claude-autodev-team/main/autodev-skill-general/scripts/install.sh | bash
 ```
 
 Re-run the same command to update.
@@ -62,7 +62,7 @@ Resume an interrupted session:
 ## Project Structure
 
 ```
-skill-orchestrate-lite-expert/
+autodev-skill-general/
 ├── README.md
 ├── settings.local.json
 ├── skills/
