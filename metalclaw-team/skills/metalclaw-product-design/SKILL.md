@@ -85,7 +85,7 @@ Write the change requirement to `<dev-session-dir>/requirement.md` with the form
 
 Based on structured requirements, design or update model documents under `<prd-dir>/models/`.
 
-**One file per model** `<prd-dir>/models/<business-group>/<module>/<model-name>.md`, format:
+**One file per model** `<prd-dir>/models/<business-group>/<module>/model-<model-name>.md`, format:
 
 ```markdown
 # <Model Name>
@@ -119,14 +119,14 @@ Business meaning and purpose of the model
 - For enum type attributes, reference dictionary definitions in `<prd-dir>/dictionaries/` rather than listing values inline
 - State transitions must clearly describe trigger conditions and preconditions
 - Create new files for new models; update existing files for existing models
-- Keep `models/models.md` and `models/<business-group>/<business-group>.md` in sync when adding or updating models
+- Keep `models/models.md` and `models/<business-group>/models-<business-group>.md` in sync when adding or updating models
 - No database design or technical implementation details
 
 ### 5. Dictionary Design
 
 When models introduce enum type attributes or business constants, design or update dictionary documents under `<prd-dir>/dictionaries/`.
 
-**One file per dictionary** `<prd-dir>/dictionaries/<business-group>/<dictionary-name>.md`, format:
+**One file per dictionary** `<prd-dir>/dictionaries/<business-group>/dictionary-<dictionary-name>.md`, format:
 
 ```markdown
 # <Dictionary Name>
@@ -150,7 +150,7 @@ Business meaning and usage scenarios of this dictionary
 
 Based on structured requirements, design or update process documents under `<prd-dir>/procedures/`. Ensure processes are consistent with model state transitions.
 
-**One file per process** `<prd-dir>/procedures/<business-group>/<module>/<procedure-name>.md`, format:
+**One file per process** `<prd-dir>/procedures/<business-group>/<module>/procedure-<procedure-name>.md`, format:
 
 ```markdown
 # <Process Name>
@@ -192,7 +192,7 @@ Describe the sequence and branching logic using mermaid flowchart syntax
 - Exception handling paths must be complete
 - Use business language, no technical implementation
 - Create new files for new processes; update existing files for existing processes
-- Keep `procedures/procedures.md` and `procedures/<business-group>/<business-group>.md` in sync when adding or updating processes
+- Keep `procedures/procedures.md` and `procedures/<business-group>/procedures-<business-group>.md` in sync when adding or updating processes
 
 ### 7. Product Architecture Design
 
@@ -288,7 +288,7 @@ Based on structured requirements, design or update application and page document
 
 New application types can be added by creating a new `<app-type>/` directory following the same structure.
 
-**Application framework document format** `<prd-dir>/applications/<app-type>/<application-name>.md`:
+**Application framework document format** `<prd-dir>/applications/<app-type>/application-<app-type>.md`:
 
 ```markdown
 # <Application Name>
@@ -366,7 +366,7 @@ Describe pages that can be navigated to from this page and their trigger conditi
 - Reference existing models, processes, and rules for consistency
 - Structure pages by sections, clearly describing content and interactions in each section
 - Create new files for new pages; update existing files for existing pages
-- Keep `<application-name>.md` page map, `pages/<application-name>-pages.md` and `pages/<business-group>/<business-group>.md` in sync when adding or updating pages
+- Keep `application-<app-type>.md` page map, `pages/pages-<application-name>.md`, `pages/<business-group>/pages-<business-group>.md` and `pages/<business-group>/<module>/pages-module-<module-name>.md` in sync when adding or updating pages
 
 ### 9. Completion
 
@@ -390,32 +390,33 @@ All product design documents are maintained under `<prd-dir>/`:
 │   ├── dictionaries/                    # Business enums and constant definitions
 │   │   ├── dictionaries.md             # Overview of all dictionary groups
 │   │   └── <business-group>/
-│   │       └── <dictionary-name>.md    # Individual dictionary/enum definition
+│   │       └── dictionary-<dictionary-name>.md    # Individual dictionary/enum definition
 │   ├── models/                          # Models, attributes, states & transitions
 │   │   ├── models.md                    # Overview of business groups and model files
 │   │   └── <business-group>/
-│   │       ├── <business-group>.md      # Overview of modules and model files under this business group
+│   │       ├── models-<business-group>.md         # Overview of modules and model files under this business group
 │   │       └── <module>/
-│   │           └── <model-name>.md
+│   │           └── model-<model-name>.md
 │   ├── procedures/                      # Processes & rules
 │   │   ├── procedures.md               # Overview of business groups and procedure files
 │   │   └── <business-group>/
-│   │       ├── <business-group>.md      # Overview of modules and procedure files under this business group
+│   │       ├── procedures-<business-group>.md     # Overview of modules and procedure files under this business group
 │   │       └── <module>/
-│   │           └── <procedure-name>.md
+│   │           └── procedure-<procedure-name>.md
 │   ├── architecture/                    # Product architecture
 │   │   ├── architecture.md             # Overall architecture overview (business modules)
 │   │   └── roles.md                    # System roles & permissions
 │   └── applications/                    # Applications
 │       └── <app-type>/                  # e.g., wxa, app, h5, web-admin, desktop, etc.
-│           ├── <application-name>.md    # Overall page framework
+│           ├── application-<app-type>.md           # Overall page framework
 │           └── pages/
-│               ├── <application-name>-pages.md  # Overview of business groups and page files
+│               ├── pages-<application-name>.md    # Overview of business groups and page files
 │               └── <business-group>/
-│                   ├── <business-group>.md      # Overview of modules and page files under this business group
+│                   ├── pages-<business-group>.md  # Overview of modules and page files under this business group
 │                   └── <module>/
+│                       ├── pages-module-<module-name>.md  # Overview of page files under this module
 │                       └── <NNN>-<page-name>.md
-└── changes/                             # Change records (<dev-session-dir>)
+└── changes/    # Change records (<dev-session-dir>)
     └── <YYYY>/
         └── <MM>/
             └── <DD>/
