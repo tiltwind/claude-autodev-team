@@ -11,7 +11,7 @@ Orchestrate the autodev multi-agent development pipeline.
 
 1. Determine the current autodev session directory as `<autodev-session-dir>`:
    - Use the directory if user specifies the session directory in `$ARGUMENTS`
-   - Create a new autodev session directory in format `.autodev/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>.md` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<autodev-session-dir>/0-requirement-raw.md`
+   - Create a new autodev session directory in format `.autodev/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>/` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<autodev-session-dir>/0-requirement-raw.md`
    - Otherwise, require user to specify the session directory or requirements info
 2. Run each sub-agent in sequential pipeline:
    - Write the current sub-agent name to `<autodev-session-dir>/STATE` before dispatching each sub-agent
