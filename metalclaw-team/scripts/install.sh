@@ -5,10 +5,20 @@ TEMPLATE_REPO="https://github.com/tiltwind/claude-autodev-team.git"
 TEMPLATE_DIR="$HOME/.claude/claude-autodev-team"
 TEAM_DIR="$TEMPLATE_DIR/metalclaw-team"
 SKILLS_DIR="$TEAM_DIR/skills"
-SUB_AGENTS_DIR="$TEAM_DIR/metalclaw-sub-agents"
 
-# Default target: user's global Claude settings
-TARGET_SETTINGS="${1:-${HOME}/.claude/settings.json}"
+# Target: current project's .claude/settings.local.json
+if [ $# -ge 1 ]; then
+  PROJECT_DIR="$1"
+else
+  PROJECT_DIR="$(pwd)"
+  read -r -p "Install into $PROJECT_DIR? [Y/n] " answer </dev/tty
+  if [[ "$answer" =~ ^[Nn] ]]; then
+    echo "Aborted."
+    exit 0
+  fi
+fi
+
+TARGET_SETTINGS="$PROJECT_DIR/.claude/settings.local.json"
 
 echo "=== MetalClaw Skills Installer ==="
 
@@ -31,21 +41,7 @@ if [ ! -f "$TARGET_SETTINGS" ]; then
   echo '{}' > "$TARGET_SETTINGS"
 fi
 
-# 2. Link metalclaw-sub-agents into each skill directory
-echo ""
-echo "Linking metalclaw-sub-agents..."
-for skill_dir in "$SKILLS_DIR"/*/; do
-  [ -f "${skill_dir}SKILL.md" ] || continue
-  skill_name=$(basename "$skill_dir")
-  link_path="${skill_dir}metalclaw-sub-agents"
-  if [ -L "$link_path" ]; then
-    rm "$link_path"
-  fi
-  ln -sfn "$SUB_AGENTS_DIR" "$link_path"
-  echo "  Linked: $skill_name/metalclaw-sub-agents -> $SUB_AGENTS_DIR"
-done
-
-# 3. Register all skills in settings.json
+# 2. Register all skills in settings.local.json
 echo ""
 echo "Installing skills..."
 

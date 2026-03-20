@@ -16,7 +16,7 @@ Orchestrate the lite MetalClaw development pipeline.
    - Otherwise, require user to specify the session directory or requirements info
 3. Run each sub-agent in sequential pipeline:
    - Write the current sub-agent name to `<dev-session-dir>/STATE` before dispatching each sub-agent
-   - **CRITICAL**: For each sub-agent, first **Read** its definition file `${CLAUDE_SKILL_DIR}/metalclaw-sub-agents/<agent-name>.md`, then use the file's content as the sub-agent's prompt, with `<dev-session-dir>` replaced by the actual session directory path. This ensures each sub-agent follows its exact instructions and file naming conventions.
+   - **CRITICAL**: For each sub-agent, first **Read** its definition file `~/.claude/claude-autodev-team/metalclaw-team/metalclaw-sub-agents/<agent-name>.md`, then use the file's content as the sub-agent's prompt, with `<dev-session-dir>` replaced by the actual session directory path. This ensures each sub-agent follows its exact instructions and file naming conventions.
    - Call the Agent tool with: `description: "<agent-name> phase"`, `subagent_type: "general-purpose"`, `prompt: <the agent instructions with dev-session-dir substituted>`
 4. When the workflow is complete:
    - Write `done` to `<dev-session-dir>/STATE`
