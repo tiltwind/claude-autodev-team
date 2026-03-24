@@ -1,6 +1,6 @@
 ---
 name: metalclaw-dev-full
-description: Orchestrate the full MetalClaw multi-agent development pipeline. Coordinate analyst, designer, expert, developer, reviewer, and tester sub-agents to turn requirements into tested code.
+description: Orchestrate the full MetalClaw multi-agent development pipeline. Coordinate analyst, designer, improver, developer, reviewer, and tester sub-agents to turn requirements into tested code.
 argument-hint: [requirement description or session directory]
 allowed-tools: Read, Write, Edit, Glob, Grep, Agent, Bash
 ---
@@ -31,7 +31,7 @@ Orchestrate the full MetalClaw multi-agent development pipeline.
 ## Sub-Agents Sequential Pipeline
 
 ```
-analyst -> designer -> expert -> developer -> reviewer -> tester
+analyst -> designer -> improver -> developer -> reviewer -> tester
                                     ^                        |
                                     |   (if tests fail)      |
                                     +------------------------+
@@ -39,7 +39,7 @@ analyst -> designer -> expert -> developer -> reviewer -> tester
 
 1. **analyst** : Requirement Analyst
 2. **designer** : Technical Designer
-3. **expert** : Technical Expert
+3. **improver** : Technical Expert
 4. **developer** : Code Developer
 5. **reviewer** : Code Reviewer
 6. **tester** : Integration Tester
@@ -50,4 +50,4 @@ analyst -> designer -> expert -> developer -> reviewer -> tester
 If `<dev-session-dir>/STATE` already exists when starting:
 - Read the state to determine which agent completed last
 - Skip already-completed phases and continue from the next agent
-- State progression: analyst -> designer -> expert -> developer -> reviewer -> tester -> done
+- State progression: analyst -> designer -> improver -> developer -> reviewer -> tester -> done

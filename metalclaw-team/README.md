@@ -1,6 +1,6 @@
 # MetalClaw Team
 
-MetalClaw 多智能体开发流水线技能集，用于 Claude Code。通过协调多个子智能体（analyst、designer、expert、developer、reviewer、tester）将需求转化为经过测试的代码。
+MetalClaw 多智能体开发流水线技能集，用于 Claude Code。通过协调多个子智能体（analyst、designer、improver、developer、reviewer、tester）将需求转化为经过测试的代码。
 
 ## 安装
 
@@ -16,7 +16,7 @@ metalclaw-team/
 ├── metalclaw-sub-agents/        # 共享子智能体定义
 │   ├── analyst.md               # 需求分析师
 │   ├── designer.md              # 技术设计师
-│   ├── expert.md                # 技术专家
+│   ├── improver.md              # 技术专家
 │   ├── developer.md             # 开发工程师
 │   ├── reviewer.md              # 代码审查员
 │   └── tester.md                # 测试工程师
@@ -41,7 +41,7 @@ metalclaw-team/
 完整开发流水线，包含全部6个子智能体：
 
 ```
-analyst -> designer -> expert -> developer -> reviewer -> tester
+analyst -> designer -> improver -> developer -> reviewer -> tester
                                     ^                        |
                                     |   (if tests fail)      |
                                     +------------------------+
