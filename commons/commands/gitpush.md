@@ -1,3 +1,7 @@
+git commit and push
+
+## Steps
+
 Step 1: git  diff
 Step 2: Review the diff output. Determine the commit type and message.
     - Types: feat | fix | refactor | docs | test | chore
