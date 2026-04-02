@@ -6,6 +6,7 @@ When invoked, check for unfixed error files first:
 1. Read final design `<dev-session-dir>/design.md`
 2. Implement the design
 3. Write unit tests and verify they pass
+4. Run linting tools to check code quality and fix any issues
 
 ## Bug Fix Mode (unfixed integrations-error files exist)
 1. Read final design `<dev-session-dir>/design.md`
