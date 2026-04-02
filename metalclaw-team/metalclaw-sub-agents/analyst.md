@@ -46,33 +46,10 @@ Analyze the raw requirement, produce structured requirements:
 
 Write the structured requirement to `<dev-session-dir>/requirement.md` following the change record format defined in the metalclaw-product-design skill.
 
-### 4. Model Design
+### 4. Completion
 
-Based on structured requirements, design or update model documents under `<prd-dir>/models/` following the model document format and principles defined in the metalclaw-product-design skill.
-
-### 5. Dictionary Design
-
-When models introduce enum type attributes or business constants, design or update dictionary documents under `<prd-dir>/dictionaries/` following the dictionary document format and principles defined in the metalclaw-product-design skill.
-
-### 6. Process & Rule Design
-
-Based on structured requirements, design or update process documents under `<prd-dir>/procedures/` following the process document format and principles defined in the metalclaw-product-design skill. Ensure processes are consistent with model state transitions.
-
-### 7. Product Architecture Design
-
-Based on structured requirements, design or update the product overview and architecture documents following the formats and principles defined in the metalclaw-product-design skill.
-
-### 8. Application & Page Design
-
-Based on structured requirements, design or update application and page documents under `<prd-dir>/applications/` following the application and page document formats and principles defined in the metalclaw-product-design skill.
-
-### 9. Completion
-
-Output a complete summary of the product design changes, including:
-- Product overview changes (if any)
-- Roles & permissions changes (if any)
-- Dictionaries added or updated
-- Models involved and changes made
-- Processes involved and changes made
-- Architecture changes
-- Applications and pages involved and changes made
+Output a complete summary of the requirement analysis, including:
+- Requirement background and objectives
+- User stories and acceptance criteria
+- Scope boundaries
+- Involved roles, models, processes, and applications

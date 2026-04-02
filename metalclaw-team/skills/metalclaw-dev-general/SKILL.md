@@ -1,6 +1,6 @@
 ---
 name: metalclaw-dev-general
-description: Orchestrate the general MetalClaw development pipeline. Coordinate analyst, designer, developer, and reviewer sub-agents for development with code review.
+description: Orchestrate the general MetalClaw development pipeline. Coordinate analyst, designer, developer, reviewer, and documenter sub-agents for development with code review and PRD updates.
 argument-hint: [requirement description or session directory]
 allowed-tools: Read, Write, Edit, Glob, Grep, Agent, Bash
 ---
@@ -26,13 +26,14 @@ Orchestrate the general MetalClaw development pipeline.
 ## Sub-Agents Sequential Pipeline
 
 ```
-analyst -> designer -> developer -> reviewer
+analyst -> designer -> developer -> reviewer -> documenter
 ```
 
 1. **analyst** : Requirement Analyst
 2. **designer** : Technical Designer
 3. **developer** : Code Developer
 4. **reviewer** : Code Reviewer
+5. **documenter** : Product Design Documenter
 
 
 ## Resume Support
@@ -40,4 +41,4 @@ analyst -> designer -> developer -> reviewer
 If `<dev-session-dir>/STATE` already exists when starting:
 - Read the state to determine which agent completed last
 - Skip already-completed phases and continue from the next agent
-- State progression: analyst -> designer -> developer -> reviewer -> done
+- State progression: analyst -> designer -> developer -> reviewer -> documenter -> done

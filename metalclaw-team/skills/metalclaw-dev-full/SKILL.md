@@ -1,6 +1,6 @@
 ---
 name: metalclaw-dev-full
-description: Orchestrate the full MetalClaw multi-agent development pipeline. Coordinate analyst, designer, improver, developer, reviewer, and tester sub-agents to turn requirements into tested code.
+description: Orchestrate the full MetalClaw multi-agent development pipeline. Coordinate analyst, designer, improver, developer, reviewer, tester, and documenter sub-agents to turn requirements into tested code with updated PRD.
 argument-hint: [requirement description or session directory]
 allowed-tools: Read, Write, Edit, Glob, Grep, Agent, Bash
 ---
@@ -21,8 +21,9 @@ Orchestrate the full MetalClaw multi-agent development pipeline.
    - After the **tester** sub-agent completes, check for unfixed errors:
       - Look for `integrations-error-*.md` files WITHOUT `-DONE` suffix in the dev session directory
       - If unfixed errors exist: loop back to **developer -> reviewer -> tester**
-      - If no unfixed errors: the workflow is complete
+      - If no unfixed errors: proceed to **documenter**
    - Maximum 3 fix iterations. After that, stop and report failure.
+   - After the **documenter** sub-agent completes, the workflow is complete
 4. When the workflow is complete:
    - Write `done` to `<dev-session-dir>/STATE`
    - Output a summary of what was accomplished
@@ -31,7 +32,7 @@ Orchestrate the full MetalClaw multi-agent development pipeline.
 ## Sub-Agents Sequential Pipeline
 
 ```
-analyst -> designer -> improver -> developer -> reviewer -> tester
+analyst -> designer -> improver -> developer -> reviewer -> tester -> documenter
                                     ^                        |
                                     |   (if tests fail)      |
                                     +------------------------+
@@ -43,6 +44,7 @@ analyst -> designer -> improver -> developer -> reviewer -> tester
 4. **developer** : Code Developer
 5. **reviewer** : Code Reviewer
 6. **tester** : Integration Tester
+7. **documenter** : Product Design Documenter
 
 
 ## Resume Support
@@ -50,4 +52,4 @@ analyst -> designer -> improver -> developer -> reviewer -> tester
 If `<dev-session-dir>/STATE` already exists when starting:
 - Read the state to determine which agent completed last
 - Skip already-completed phases and continue from the next agent
-- State progression: analyst -> designer -> improver -> developer -> reviewer -> tester -> done
+- State progression: analyst -> designer -> improver -> developer -> reviewer -> tester -> documenter -> done

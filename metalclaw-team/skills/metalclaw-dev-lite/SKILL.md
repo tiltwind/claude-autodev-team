@@ -1,6 +1,6 @@
 ---
 name: metalclaw-dev-lite
-description: Orchestrate the lite MetalClaw development pipeline. Coordinate analyst, designer, and developer sub-agents for quick requirement-to-code development.
+description: Orchestrate the lite MetalClaw development pipeline. Coordinate analyst, designer, developer, and documenter sub-agents for quick requirement-to-code development with PRD updates.
 argument-hint: [requirement description or session directory]
 allowed-tools: Read, Write, Edit, Glob, Grep, Agent, Bash
 ---
@@ -26,12 +26,13 @@ Orchestrate the lite MetalClaw development pipeline.
 ## Sub-Agents Sequential Pipeline
 
 ```
-analyst -> designer -> developer
+analyst -> designer -> developer -> documenter
 ```
 
 1. **analyst** : Requirement Analyst
 2. **designer** : Technical Designer
 3. **developer** : Code Developer
+4. **documenter** : Product Design Documenter
 
 
 ## Resume Support
@@ -39,4 +40,4 @@ analyst -> designer -> developer
 If `<dev-session-dir>/STATE` already exists when starting:
 - Read the state to determine which agent completed last
 - Skip already-completed phases and continue from the next agent
-- State progression: analyst -> designer -> developer -> done
+- State progression: analyst -> designer -> developer -> documenter -> done
