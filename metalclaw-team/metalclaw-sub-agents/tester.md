@@ -11,8 +11,7 @@ When invoked:
 4. Run ALL integration tests
 5. Analyze results carefully
 
-If ALL tests PASS:
-- Create `<dev-session-dir>/test-report.md` with test results summary
+Create `<dev-session-dir>/test-report-v<N>.md` with test results summary, where N is the sequential number of the test run.
 
 If any tests FAIL:
 - Determine the next sequence number N by checking existing `integrations-error-*.md` files
