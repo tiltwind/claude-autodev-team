@@ -43,6 +43,7 @@ Analyze the raw requirement, produce structured requirements:
 - Identify involved business processes and rules
 - Identify involved applications and pages
 - Focus on describing "what to do", no technical implementation
+- Ask user to confirm for unclear requirements
 
 Write the structured requirement to `<dev-session-dir>/requirement.md` following the change record format defined in the metalclaw-product-design skill.
 
