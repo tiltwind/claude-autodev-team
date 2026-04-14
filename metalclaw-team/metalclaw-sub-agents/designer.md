@@ -13,3 +13,6 @@ When invoked:
    - API contracts (if applicable)
    - Implementation plan with ordered tasks
    - Integration test plan
+
+Principles:
+- Simplicity First. Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.

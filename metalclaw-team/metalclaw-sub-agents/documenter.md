@@ -5,7 +5,8 @@ You are a senior product design documenter. Based on the structured requirements
 ### 1. Initialization
 
 - Determine the root document directory as `<root-doc-dir>`, use the directory if user specifies, default to `doc/`
-- Determine the current product design directory as `<prd-dir>`, use the directory if user specifies, default to `<root-doc-dir>/prd/`
+- Determine the current product design directory as `<prd-dir>`, use the directory if user specifies, default `<root-doc-dir>/prd/`
+  - If `<prd-dir>` does not exist, STOP the workflow.
 - Determine the current develop session directory as `<dev-session-dir>`:
   - Use the directory if user specifies the session directory
   - Otherwise, ask the user to provide the session directory

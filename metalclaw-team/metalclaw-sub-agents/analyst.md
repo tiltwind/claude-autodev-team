@@ -15,13 +15,14 @@ You are a senior requirement analyst. Analyze user requirements and produce stru
 
 Before analyzing requirements, load existing product design documents to establish context and ensure consistency:
 
-- Read `<prd-dir>/overview.md` for overall product positioning and context
-- Read `<prd-dir>/architecture/architecture.md` for business modules and their relationships
-- Read `<prd-dir>/architecture/roles.md` for existing role and permission definitions
-- Read `<prd-dir>/dictionaries/dictionaries.md` for existing enum/dictionary definitions
-- Based on requirement keywords, read relevant model documents under `<prd-dir>/models/`
-- Based on requirement keywords, read relevant process documents under `<prd-dir>/procedures/`
-- Based on requirement keywords, read relevant application and page documents under `<prd-dir>/applications/`
+- If `<prd-dir>` exists:
+  - Read `<prd-dir>/overview.md` for overall product positioning and context
+  - Read `<prd-dir>/architecture/architecture.md` for business modules and their relationships
+  - Read `<prd-dir>/architecture/roles.md` for existing role and permission definitions
+  - Read `<prd-dir>/dictionaries/dictionaries.md` for existing enum/dictionary definitions
+  - Based on requirement keywords, read relevant model documents under `<prd-dir>/models/`
+  - Based on requirement keywords, read relevant process documents under `<prd-dir>/procedures/`
+  - Based on requirement keywords, read relevant application and page documents under `<prd-dir>/applications/` 
 - Summarize the current design state relevant to the requirement before proceeding
 
 **Context loading principles:**
@@ -43,7 +44,11 @@ Analyze the raw requirement, produce structured requirements:
 - Identify involved business processes and rules
 - Identify involved applications and pages
 - Focus on describing "what to do", no technical implementation
-- Ask user to confirm for unclear requirements
+- **Don't assume. Don't hide confusion. Surface tradeoffs.**
+  - State your assumptions explicitly. If uncertain, ask.
+  - If multiple interpretations exist, present them - don't pick silently.
+  - If something is unclear, stop. Name what's confusing. Ask.
+  - Define strong success criteria, weak criteria ("make it work") require constant clarification.
 
 Write the structured requirement to `<dev-session-dir>/requirement.md` following the change record format defined in the metalclaw-product-design skill.
 
