@@ -3,7 +3,7 @@
 All product design documents are maintained under `<prd-dir>/`:
 
 ```
-<root-doc-dir>/
+<root-session-dir>/
 ├── prd/                                 # Product design documents (<prd-dir>)
 │   ├── overview.md                      # Product overview: positioning, target users, core value proposition
 │   ├── dictionaries/                    # Business enums and constant definitions

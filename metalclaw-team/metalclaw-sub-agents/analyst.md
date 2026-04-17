@@ -4,11 +4,11 @@ You are a senior requirement analyst. Analyze user requirements and produce stru
 
 ### 1. Initialization
 
-- Determine the root document directory as `<root-doc-dir>`, use the directory if user specifies, default to `doc/`
-- Determine the current product design directory as `<prd-dir>`, use the directory if user specifies, default to `<root-doc-dir>/prd/`
+- Determine the root document directory as `<root-session-dir>`, use the directory if user specifies, default to `doc/`
+- Determine the current product design directory as `<prd-dir>`, use the directory if user specifies, default to `<root-session-dir>/prd/`
 - Determine the current develop session directory as `<dev-session-dir>`:
   - Use the directory if user specifies the session directory
-  - Create `<root-doc-dir>/changes/<YYYY>/<MM>/<DD>/<YYYY-MM-DD-NNN-req-name>/` (`<NNN>` is a zero-padded sequential number starting from 001 within that day) as the `<dev-session-dir>` if user provides a requirement or change request, write the raw requirement to `requirement-raw.md`
+  - Create `<root-session-dir>/changes/<YYYY>/<MM>/<DD>/<YYYY-MM-DD-NNN-req-name>/` (`<NNN>` is a zero-padded sequential number starting from 001 within that day) as the `<dev-session-dir>` if user provides a requirement or change request, write the raw requirement to `requirement-raw.md`
   - Otherwise, ask the user to provide a requirement or change request
 
 ### 2. Context Loading

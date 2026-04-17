@@ -1,6 +1,6 @@
 ### Change Record
 
-**Path**: `<root-doc-dir>/changes/<YYYY>/<MM>/<DD>/<YYYY-MM-DD-NNN-req-name>/`
+**Path**: `<root-session-dir>/changes/<YYYY>/<MM>/<DD>/<YYYY-MM-DD-NNN-req-name>/`
 
 - `requirement-raw.md` — original requirement from user
 - `requirement.md` — structured requirement document
