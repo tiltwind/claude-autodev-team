@@ -25,8 +25,8 @@ Prepare MetalClaw development requirements: do coarse architecture-level scope a
 - Determine the product design directory as `<prd-dir>`, use the directory if user specifies, default to `<root-doc-dir>/prd/`
 - Determine the root session directory as `<root-session-dir>`, use the directory if user specifies, default to `changes/`
 - Capture the raw requirement:
-  - If `$ARGUMENTS` contains a file path, **Read** it as the raw requirement
-  - Otherwise, treat `$ARGUMENTS` (and any inline user description) as the raw requirement text
+  - If user specifies a file path, **Read** it as the raw requirement
+  - Otherwise, treat user (and any inline user description) as the raw requirement text
   - If nothing usable is provided, ask the user to supply a requirement or change request and stop until they do
 
 ### 2. Architecture Context Loading

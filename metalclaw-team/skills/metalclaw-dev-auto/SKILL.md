@@ -9,12 +9,16 @@ Orchestrate the MetalClaw multi-agent development pipeline with automatic comple
 
 Unlike `metalclaw-dev-full` (which always runs all 7 sub-agents) and `metalclaw-dev-lite` (which always runs a fixed 4), this skill evaluates the task after the **designer** phase and auto-decides whether the **improver**, **reviewer**, and **tester** phases are necessary.
 
+## User Prompt
+
+`$ARGUMENTS`
+
 ## Instructions
 
 1. Determine the root session directory as `<root-session-dir>`, use the directory if user specifies, default to `changes/`
 2. Determine the current dev session directory as `<dev-session-dir>`:
-   - Use the directory if user specifies the session directory in `$ARGUMENTS`
-   - Create a new dev session directory in format `<root-session-dir>/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>/` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) if user specifies requirements info in `$ARGUMENTS`, and write the requirements to `<dev-session-dir>/requirement-raw.md`
+   - Use the directory if user specifies the session directory.
+   - Create a new dev session directory in format `<root-session-dir>/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>/` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) if user specifies requirements info, and write the requirements to `<dev-session-dir>/requirement-raw.md`
    - Otherwise, require user to specify the session directory or requirements info
 3. Run each sub-agent in sequential pipeline:
    - Write the current sub-agent name to `<dev-session-dir>/STATE` before dispatching each sub-agent

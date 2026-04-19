@@ -12,8 +12,8 @@ Run the MetalClaw development pipeline with a **hybrid execution model**: the ma
 1. Determine the root document directory as `<root-doc-dir>`, use the directory if user specifies, default to `doc/`.
 1. Determine the root session directory as `<root-session-dir>`, use the directory if user specifies, default to `changes/`.
 2. Determine the current dev session directory as `<dev-session-dir>`:
-   - Use the directory if user specifies the session directory in `$ARGUMENTS`.
-   - Otherwise, if user provides requirements info in `$ARGUMENTS`, create `<root-session-dir>/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>/` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) and write the raw requirements to `<dev-session-dir>/requirement-raw.md`.
+   - Use the directory if user specifies the session directory.
+   - Otherwise, if user provides requirements info, create `<root-session-dir>/<YYYY>/<MM>/<DD>/YYYY-MM-DD-<NNN>-<requirement-short-name>/` (where `<NNN>` is a zero-padded sequential number starting from 001 within that day) and write the raw requirements to `<dev-session-dir>/requirement-raw.md`.
    - Otherwise, require user to specify the session directory or requirements info.
 3. Run each phase by following the principles in [Phases](#phases). Before starting each phase, write the phase name to `<dev-session-dir>/STATE`.
    - **Inline phases** (main agent): `analyst`, `designer`, `developer`, `documenter`. Execute these directly using the main agent's tools.
